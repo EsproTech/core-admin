@@ -1,0 +1,9 @@
+{
+    "development": {
+        "username": "openbot",
+        "password": "0p3nb0t",
+        "database": "develop",
+        "host": "localhost",
+        "dialect": "postgres"
+    }
+}

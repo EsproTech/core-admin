@@ -1,0 +1,23 @@
+{
+    "development": {
+        "username": "openbot",
+        "password": "0p3nb0t",
+        "database": "postgres",
+        "host": "localhost",
+        "dialect": "postgres"
+    },
+    "test": {
+        "username": "openbot",
+        "password": "0p3nb0t",
+        "database": "postgres",
+        "host": "localhost",
+        "dialect": "postgres"
+    },
+    "production": {
+        "username": "openbot",
+        "password": "0p3nb0t",
+        "database": "postgres",
+        "host": "localhost",
+        "dialect": "postgres"
+    }
+}
