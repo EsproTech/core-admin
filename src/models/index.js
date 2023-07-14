@@ -6,7 +6,7 @@ import _ from "lodash";
 import { sequelize } from "../database/db";
 import runSeeds from '../seeders/seed';
 
-// const conectionDB = (async () => {
+const conectionDB = (async () => {
     let basename = path.basename(module.filename);
     let db = {};
     // Leyendo los modelos del proyecto base.
@@ -63,10 +63,10 @@ import runSeeds from '../seeders/seed';
         await runSeeds(queryInterface, transaction);
     }
 
-//     await runAsyncModels();
+    await runAsyncModels();
 
-//     return db;
-// })();
+    return db;
+})();
 
-// module.exports = conectionDB;
-module.exports = db;
+module.exports = conectionDB;
+// module.exports = db;

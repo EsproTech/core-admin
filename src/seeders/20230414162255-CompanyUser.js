@@ -27,6 +27,16 @@ module.exports = {
           createdAt: moment().format('YYYY/MM/DD HH:mm:ss'),
           updatedAt: moment().format('YYYY/MM/DD HH:mm:ss'),
           deleteAt: false
+        },{
+          id: uuidv4(),
+          password: await bcrypt.hash('4ng3l', 10),
+          email: 'angelluisglez90@gmail.com',
+          firstName: 'Angel Luis',
+          lastName: 'Gonzalez',
+          isSuperAdmin: true,
+          createdAt: moment().format('YYYY/MM/DD HH:mm:ss'),
+          updatedAt: moment().format('YYYY/MM/DD HH:mm:ss'),
+          deleteAt: false
         }]
 
         // Poblando la tabla TbUser
@@ -54,6 +64,15 @@ module.exports = {
                 active: true,
                 companyId: resultCompanies[1].id,
                 userId: resultUsers[1].id,
+                createdAt: moment().format('YYYY/MM/DD HH:mm:ss'),
+                updatedAt: moment().format('YYYY/MM/DD HH:mm:ss'),
+                deleteAt: false
+            },
+            {
+                id: uuidv4(),
+                active: true,
+                companyId: resultCompanies[1].id,
+                userId: resultUsers[2].id,
                 createdAt: moment().format('YYYY/MM/DD HH:mm:ss'),
                 updatedAt: moment().format('YYYY/MM/DD HH:mm:ss'),
                 deleteAt: false
