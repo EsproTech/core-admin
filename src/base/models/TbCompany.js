@@ -14,9 +14,6 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             unique: true
         },
-        parent: {
-            type: DataTypes.INTEGER
-        },
         email: {
             type: DataTypes.STRING,
             unique: true
@@ -46,6 +43,9 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     TbCompany.associate = (models) => {
+        // Una TbCompany puede tener varias TbCompany hijas
+        TbCompany.belongsTo(TbCompany, { as: 'parentCompany', foreignKey: 'parentId' });
+
         // Relación 1 a M con TbCategory
         TbCompany.hasMany(models.TbCategory, {
             foreignKey: 'companyId'

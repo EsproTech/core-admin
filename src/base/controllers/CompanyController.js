@@ -1,4 +1,6 @@
 import _ from "lodash";
+import { v4 as uuidv4 } from 'uuid';
+
 import models from "../../models/index";
 let TbCompany = models.TbCompany;
 let TbUser = models.TbUser;
@@ -28,7 +30,7 @@ const getPagingData = (data, page, limit) => {
 
 module.exports = {
     create(req, res) {
-        const data = { ...req.body, ...createdUpdateAt() };
+        const data = { ...req.body, id: uuidv4(), ...createdUpdateAt() };
         return TbCompany
             .create(data, {
                 include: ["address"]

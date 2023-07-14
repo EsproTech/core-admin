@@ -10,8 +10,12 @@ import CompanyUser from './CompanyUserRoute';
 import GroupRoute from "./GroupRoute";
 import CurrencyRoute from "./CurrencyRoute";
 import ApplicationRoute from './ApplicationRoute';
+// Rutas del modulo Filemanager
 import FileRoute from "../../filemanager/routes/FileRoute";
+// Rutas del modulo de ventas
 import CustomerRoute from "../../sale/routes/CustomerRoute";
+// Rutas del modulo de stock
+import CategoryRoute from "../../stock/routes/CategoryRoute";
 
 
 const router = Router();
@@ -27,10 +31,8 @@ router.use('/usercompany', CompanyUser);
 router.use('/application', ApplicationRoute);
 router.use('/group', GroupRoute);
 router.use('/currency', CurrencyRoute);
-
-// Rutas del Filemanager
+router.use('/category', CategoryRoute);
 router.use('/files', FileRoute);
-// Rutas del modulo de Ventas
 router.use('/customer', CustomerRoute);
 
 module.exports = router;

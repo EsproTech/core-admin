@@ -34,6 +34,9 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     TbCategory.associate = (models) => {
+        // Una categoria puede tener varias categorias hijas
+        TbCategory.belongsTo(TbCategory, { as: 'parentCategory', foreignKey: 'parentId' });
+
         // Relación 1 a M con TbProduct
         TbCategory.hasMany(models.TbProduct, {
             foreignKey: 'categoryId',
