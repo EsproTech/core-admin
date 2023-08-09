@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-    const TbCategory = sequelize.define('TbCategory', {
+    const TbWarehouse = sequelize.define('TbWarehouse', {
         id: {
             type: DataTypes.UUID,
             primaryKey: true,
@@ -13,9 +13,26 @@ module.exports = (sequelize, DataTypes) => {
         image: {
             type: DataTypes.STRING
         },
-        message: {
+        active: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: true
+        },
+        predetermined: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false
+        },
+        phone: {
+            type: DataTypes.STRING  
+        },
+        address:{
+            type: DataTypes.STRING
+        },        
+        workHours: {
             type: DataTypes.STRING
         },
+        description: {
+            type: DataTypes.STRING
+        },        
         createdAt: {
             type: DataTypes.DATE,
             defaultValue: sequelize.DATE
@@ -33,28 +50,25 @@ module.exports = (sequelize, DataTypes) => {
         freezeTableName: true
     });
 
-    TbCategory.associate = (models) => {
-        // Una categoria puede tener varias categorias hijas
-        TbCategory.belongsTo(TbCategory, { as: 'parentCategory', foreignKey: 'parentId' });
-
+    TbWarehouse.associate = (models) => {
         // Relación 1 a M con TbProduct
-        TbCategory.hasMany(models.TbProduct, {
-            foreignKey: 'categoryId',
+        TbWarehouse.hasMany(models.TbProduct, {
+            foreignKey: 'warehouseId',
         });
 
         // Relación M a 1 con TbCompany
-        TbCategory.belongsTo(models.TbCompany, {
+        TbWarehouse.belongsTo(models.TbCompany, {
             foreignKey: 'companyId',
-            as: 'companies',
+            as: 'storecompany',
             onDelete: 'CASCADE',
         });
     }
 
-    TbCategory.beforeCreate(async (category, options) => {
-        if (!category.companyId) {
+    TbWarehouse.beforeCreate(async (warehouse, options) => {
+        if (!warehouse.companyId) {
           throw new Error('companyId is required');
         }
     });
 
-    return TbCategory;
+    return TbWarehouse;
 }

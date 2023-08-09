@@ -62,7 +62,7 @@ module.exports = {
             {
                 id: uuidv4(),
                 active: true,
-                companyId: resultCompanies[1].id,
+                companyId: resultCompanies[0].id,
                 userId: resultUsers[1].id,
                 createdAt: moment().format('YYYY/MM/DD HH:mm:ss'),
                 updatedAt: moment().format('YYYY/MM/DD HH:mm:ss'),
@@ -71,7 +71,7 @@ module.exports = {
             {
                 id: uuidv4(),
                 active: true,
-                companyId: resultCompanies[1].id,
+                companyId: resultCompanies[0].id,
                 userId: resultUsers[2].id,
                 createdAt: moment().format('YYYY/MM/DD HH:mm:ss'),
                 updatedAt: moment().format('YYYY/MM/DD HH:mm:ss'),
@@ -81,6 +81,19 @@ module.exports = {
 
         // Poblando la tabla TbCompanyUser
         await queryInterface.bulkInsert('TbCompanyUser', company_user, {});
+        const warehouse = [
+          {
+              id: uuidv4(),
+              name: 'Warehouse',
+              companyId: resultCompanies[0].id,
+              predetermined: true,
+              createdAt: moment().format('YYYY/MM/DD HH:mm:ss'),
+              updatedAt: moment().format('YYYY/MM/DD HH:mm:ss'),
+              deleteAt: false
+          }
+        ]
+        // Poblando la tabla TbWarehouse
+        await queryInterface.bulkInsert('TbWarehouse', warehouse, {});
     }catch (error) {
       console.error('Error durante la siembra CompanyUser:', error);
     }   

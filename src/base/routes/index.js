@@ -16,7 +16,7 @@ import FileRoute from "../../filemanager/routes/FileRoute";
 import CustomerRoute from "../../sale/routes/CustomerRoute";
 // Rutas del modulo de stock
 import CategoryRoute from "../../stock/routes/CategoryRoute";
-
+import WarehouseRoute from "../../stock/routes/WarehouseRoute";
 
 const router = Router();
 
@@ -32,6 +32,7 @@ router.use('/application', ApplicationRoute);
 router.use('/group', GroupRoute);
 router.use('/currency', CurrencyRoute);
 router.use('/category', CategoryRoute);
+router.use('/warehouse', WarehouseRoute);
 router.use('/files', FileRoute);
 router.use('/customer', CustomerRoute);
 

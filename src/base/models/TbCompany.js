@@ -71,6 +71,11 @@ module.exports = (sequelize, DataTypes) => {
             foreignKey: 'companyId'
         })
 
+        // Relación 1 a M con TbOrderSale
+        TbCompany.hasMany(models.TbWarehouse, {
+            foreignKey: 'companyId'
+        })
+
         TbCompany.belongsTo(models.TbAddress, {
             foreignKey: 'addressId',
             as: 'address',

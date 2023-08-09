@@ -5,6 +5,7 @@ import models from "../../models/index";
 let TbCompany = models.TbCompany;
 let TbUser = models.TbUser;
 let TbAddress = models.TbAddress;
+let TbWarehouse = models.TbWarehouse;
 
 import Response from "../../utils/response";
 import {
@@ -28,27 +29,44 @@ const getPagingData = (data, page, limit) => {
   return { totalItems, companies, totalPages, currentPage };
 };
 
-module.exports = {
-    create(req, res) {
+async function create (req, res) {
+    const transaction = await models.sequelize.transaction();
+    try{        
         const data = { ...req.body, id: uuidv4(), ...createdUpdateAt() };
-        return TbCompany
-            .create(data, {
-                include: ["address"]
-            })
-            .then(newCompany => {
-                if (newCompany) {
-                    const company = cleanExtraData(newCompany.dataValues);
-                    const resp = Response(200, { company }, []);
-                    return res.status(200).json(resp);
-                } else {
-                    const resp = Response(202, {}, { error: "Ocurrió un error creando la compañía." });
-                    return res.status(202).json(resp);
-                }
-            }).catch(e => {                
-                const resp = Response(202, {}, { error: "Ocurrió un error creando la compañía" });
-                return res.status(202).json(resp);
-            });
-    },
+        const newCompany = await TbCompany.create(data, {
+            transaction,
+            include: ["address"]
+        });
+
+        await TbWarehouse.create({
+            id: uuidv4(),
+            name: "Warehouse",
+            companyId: newCompany.id,
+            predetermined: true
+        }, {
+            transaction
+        });
+        
+        // Confirmar la transacción
+        await transaction.commit();
+
+        if (newCompany) {
+            const company = cleanExtraData(newCompany.dataValues);
+            const resp = Response(200, { company }, []);
+            return res.status(200).json(resp);
+        } else {
+            const resp = Response(202, {}, { error: "Ocurrió un error creando la compañía." });
+            return res.status(202).json(resp);
+        }
+    }catch(err){
+        await transaction.rollback();
+        const resp = Response(202, {}, { error: "Ocurrió un error creando la compañía" });
+        return res.status(202).json(resp);
+    }
+}
+
+module.exports = {
+    create,
 
     list(req, res) {
         const { page, size, code } = req.query;
@@ -82,7 +100,7 @@ module.exports = {
                     required: false,
                     where: {
                         deleteAt: false
-                    }
+                }
             }],
             attributes: { exclude: ['updatedAt', 'deleteAt'] }
          })
