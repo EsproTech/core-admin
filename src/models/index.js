@@ -36,6 +36,6 @@ const runAsyncModels = async () => {
     const transaction = await sequelize.transaction();
     await runSeeds(queryInterface, transaction);
 }
-runAsyncModels();
+// runAsyncModels();
 
 module.exports = db;
