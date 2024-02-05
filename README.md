@@ -2,9 +2,6 @@
 
 #### Implementación ####
 
-### Eliminar un proceso de node en windows ###
-taskkill /F /IM node.exe
-
 ### Variable de cabecera para las claves ###
 X-API-Key
 
